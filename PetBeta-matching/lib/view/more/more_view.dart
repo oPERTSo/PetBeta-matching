@@ -4,6 +4,8 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pettakecare/common/color_extension.dart';
 import 'package:pettakecare/view/login/login_view.dart';
 import 'package:pettakecare/view/more/notifications.dart';
+import 'package:pettakecare/view/profile/BookList.dart';
+import 'package:pettakecare/view/profile/PaymentList.dart';
 
 class MoreView extends StatefulWidget {
   const MoreView({super.key});
@@ -86,7 +88,8 @@ class _MoreViewState extends State<MoreView> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const NotificationsView()));
+                                builder: (context) =>
+                                    const NotificationsView()));
                       },
                       icon: Image.asset(
                         "assets/img/more_notification.png",
@@ -112,13 +115,13 @@ class _MoreViewState extends State<MoreView> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Container()));
+                                    builder: (context) => PaymentList()));
                             break;
                           case "2":
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Container()));
+                                    builder: (context) => BookListView()));
                             break;
                           case "3":
                             Navigator.push(

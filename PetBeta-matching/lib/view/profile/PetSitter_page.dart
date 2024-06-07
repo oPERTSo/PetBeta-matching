@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:pettakecare/view/menu/PetSitter_view.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
+import 'package:pettakecare/common_widget/notification.dart';
 
 class PetSitterPage extends StatefulWidget {
   @override
@@ -126,6 +127,7 @@ class PetSitterPageState extends State<PetSitterPage> {
         foregroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
+        actions: const [NotificationBadge()],
       ),
       body: SingleChildScrollView(
           child: Column(children: [
