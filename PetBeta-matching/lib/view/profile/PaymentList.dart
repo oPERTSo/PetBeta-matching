@@ -6,10 +6,10 @@ class PaymentListView extends StatefulWidget {
   const PaymentListView({Key? key}) : super(key: key);
 
   @override
-  State<PaymentListView> createState() => _PaymentListViewState();
+  State<PaymentListView> createState() => _PaymentListState();
 }
 
-class _PaymentListViewState extends State<PaymentListView> {
+class _PaymentListState extends State<PaymentListView> {
   List<Map<String, dynamic>> _books = [];
   late QuerySnapshot _querySnapshotUser;
 
@@ -21,22 +21,29 @@ class _PaymentListViewState extends State<PaymentListView> {
 
   Future<void> getBooks() async {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
-    QuerySnapshot querySnapshot = await firestore.collection('books').get();
-    QuerySnapshot querySnapshotUser = await firestore.collection('users').get();
+    String currentUserId =
+        "your_current_user_id"; // แทนที่ด้วย ID ผู้ใช้ปัจจุบันของคุณ
+    QuerySnapshot querySnapshot = await firestore
+        .collection('books')
+        .where('user_id', isEqualTo: currentUserId)
+        .get();
     final allData = querySnapshot.docs
         .map((doc) => doc.data() as Map<String, dynamic>)
         .toList();
+    allData.sort((a, b) => (b['expiry'] as Timestamp)
+        .compareTo(a['expiry'] as Timestamp)); // เรียงลำดับตามวันที่หมดอายุ
     setState(() {
       _books = allData;
-      _querySnapshotUser = querySnapshotUser;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
-    return ListView.builder(
+    return ListView.separated(
       itemCount: _books.length,
+      separatorBuilder: (context, index) =>
+          SizedBox(height: 10), // ความสูงของ space ระหว่างวันที่
       itemBuilder: (context, index) {
         var book = _books[index];
         for (DocumentSnapshot userDataMap in _querySnapshotUser.docs) {

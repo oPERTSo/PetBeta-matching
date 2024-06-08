@@ -26,6 +26,8 @@ class _BookListViewState extends State<BookListView> {
     final allData = querySnapshot.docs
         .map((doc) => doc.data() as Map<String, dynamic>)
         .toList();
+    allData.sort((a, b) => (b['expiry'] as Timestamp)
+        .compareTo(a['expiry'] as Timestamp)); // เรียงลำดับตามวันที่หมดอายุ
     setState(() {
       _books = allData;
       _querySnapshotUser = querySnapshotUser;
@@ -35,8 +37,10 @@ class _BookListViewState extends State<BookListView> {
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
-    return ListView.builder(
+    return ListView.separated(
       itemCount: _books.length,
+      separatorBuilder: (context, index) =>
+          SizedBox(height: 10), // ความสูงของ space ระหว่างวันที่
       itemBuilder: (context, index) {
         var book = _books[index];
         for (DocumentSnapshot userDataMap in _querySnapshotUser.docs) {

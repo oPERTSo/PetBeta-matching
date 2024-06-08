@@ -115,7 +115,7 @@ class _MoreViewState extends State<MoreView> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => PaymentList()));
+                                    builder: (context) => PaymentListView()));
                             break;
                           case "2":
                             Navigator.push(
