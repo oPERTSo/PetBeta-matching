@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pettakecare/common/color_extension.dart';
 import 'package:pettakecare/common_widget/tab_button.dart';
-import 'package:pettakecare/view/chat/chat_view.dart';
+import 'package:pettakecare/view/chat/chatlist.dart';
 import 'package:pettakecare/view/home/home_view.dart';
 import 'package:pettakecare/view/menu/menu_view.dart';
 import 'package:pettakecare/view/more/more_view.dart';
@@ -49,72 +49,71 @@ class _MainTabViewState extends State<MainTabView> {
       ),
       bottomNavigationBar: BottomAppBar(
         surfaceTintColor: TColor.white,
-        shadowColor: Colors.black ,
+        shadowColor: Colors.black,
         elevation: 1,
-        notchMargin:12,
+        notchMargin: 12,
         height: 64,
         shape: const CircularNotchedRectangle(),
         child: SafeArea(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-                    TabButton(
-                    title: "Menu",
-                    icon: "assets/img/tab_menu.png",
-                    onTap: () {
-                      if (selctTab != 0) {
-                        selctTab = 0;
-                        selectPageView = const MenuView();
-                      }
-                      if (mounted) {
-                        setState(() {});
-                      }
-                    },
-                    isSelected: selctTab == 0),
-          
-                    TabButton(
-                    title: "chat",
-                    icon: "assets/img/chat.png",
-                    onTap: () {
-                      if (selctTab != 1) {
-                        selctTab = 1;
-                        selectPageView = const ChatView();
-                      }
-                      if (mounted) {
-                        setState(() {});
-                      }
-                    },
-                    isSelected: selctTab == 1),
-          
-                  const SizedBox(width: 40, height: 40,),
-                    
-                    TabButton(
-                    title: "Profile",
-                    icon: "assets/img/tab_profile.png",
-                    onTap: () {
-                      if (selctTab != 3) {
-                        selctTab = 3;
-                        selectPageView = const ProfileView();
-                      }
-                      if (mounted) {
-                        setState(() {});
-                      }
-                    },
-                    isSelected: selctTab == 3),
-          
-                    TabButton(
-                    title: "more",
-                    icon: "assets/img/tab_more.png",
-                    onTap: () {
-                      if (selctTab != 4) {
-                        selctTab = 4;
-                        selectPageView = MoreView();
-                      }
-                      if (mounted) {
-                        setState(() {});
-                      }
-                    },
-                    isSelected: selctTab == 4),
+              TabButton(
+                  title: "Menu",
+                  icon: "assets/img/tab_menu.png",
+                  onTap: () {
+                    if (selctTab != 0) {
+                      selctTab = 0;
+                      selectPageView = const MenuView();
+                    }
+                    if (mounted) {
+                      setState(() {});
+                    }
+                  },
+                  isSelected: selctTab == 0),
+              TabButton(
+                  title: "chat",
+                  icon: "assets/img/chat.png",
+                  onTap: () {
+                    if (selctTab != 1) {
+                      selctTab = 1;
+                      selectPageView = UserListView();
+                    }
+                    if (mounted) {
+                      setState(() {});
+                    }
+                  },
+                  isSelected: selctTab == 1),
+              const SizedBox(
+                width: 40,
+                height: 40,
+              ),
+              TabButton(
+                  title: "Profile",
+                  icon: "assets/img/tab_profile.png",
+                  onTap: () {
+                    if (selctTab != 3) {
+                      selctTab = 3;
+                      selectPageView = const ProfileView();
+                    }
+                    if (mounted) {
+                      setState(() {});
+                    }
+                  },
+                  isSelected: selctTab == 3),
+              TabButton(
+                  title: "more",
+                  icon: "assets/img/tab_more.png",
+                  onTap: () {
+                    if (selctTab != 4) {
+                      selctTab = 4;
+                      selectPageView = MoreView();
+                    }
+                    if (mounted) {
+                      setState(() {});
+                    }
+                  },
+                  isSelected: selctTab == 4),
             ],
           ),
         ),

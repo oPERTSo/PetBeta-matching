@@ -6,34 +6,31 @@ class PaymentListView extends StatefulWidget {
   const PaymentListView({Key? key}) : super(key: key);
 
   @override
-  State<PaymentListView> createState() => _PaymentListState();
+  State<PaymentListView> createState() => _PaymentListViewState();
 }
 
-class _PaymentListState extends State<PaymentListView> {
-  List<Map<String, dynamic>> _books = [];
+class _PaymentListViewState extends State<PaymentListView> {
+  List<Map<String, dynamic>> _payments = [];
   late QuerySnapshot _querySnapshotUser;
 
   @override
   void initState() {
     super.initState();
-    getBooks();
+    getPayments();
   }
 
-  Future<void> getBooks() async {
+  Future<void> getPayments() async {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
-    String currentUserId =
-        "your_current_user_id"; // แทนที่ด้วย ID ผู้ใช้ปัจจุบันของคุณ
-    QuerySnapshot querySnapshot = await firestore
-        .collection('books')
-        .where('user_id', isEqualTo: currentUserId)
-        .get();
+    QuerySnapshot querySnapshot = await firestore.collection('payments').get();
+    QuerySnapshot querySnapshotUser = await firestore.collection('users').get();
     final allData = querySnapshot.docs
         .map((doc) => doc.data() as Map<String, dynamic>)
         .toList();
-    allData.sort((a, b) => (b['expiry'] as Timestamp)
-        .compareTo(a['expiry'] as Timestamp)); // เรียงลำดับตามวันที่หมดอายุ
+    allData.sort((a, b) => (b['created_at'] as Timestamp)
+        .compareTo(a['created_at'] as Timestamp)); // เรียงลำดับตามวันที่สร้าง
     setState(() {
-      _books = allData;
+      _payments = allData;
+      _querySnapshotUser = querySnapshotUser;
     });
   }
 
@@ -41,23 +38,24 @@ class _PaymentListState extends State<PaymentListView> {
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
     return ListView.separated(
-      itemCount: _books.length,
+      itemCount: _payments.length,
       separatorBuilder: (context, index) =>
           SizedBox(height: 10), // ความสูงของ space ระหว่างวันที่
       itemBuilder: (context, index) {
-        var book = _books[index];
+        var payment = _payments[index];
         for (DocumentSnapshot userDataMap in _querySnapshotUser.docs) {
-          if (userDataMap.id == book['user_id']) {
-            var expiryDateTime = book['expiry'];
+          if (userDataMap.id == payment['user_id']) {
+            var createdDateTime = payment['created_at'];
+            // ignore: unused_local_variable
             String dateString =
-                DateFormat('dd/MM/yyyy').format(expiryDateTime.toDate());
+                DateFormat('dd/MM/yyyy').format(createdDateTime.toDate());
 
             return Card(
               // ใส่การ์ดที่นี่
               child: ListTile(
                 title: Text('ชื่อ: ${userDataMap['name'] ?? ''}'),
                 subtitle: Text(
-                    'Status: ${book['status'] ?? ''}\nชื่อสัตว์เลี้ยง: ${book['pet_name'].toString() ?? ''}\nวันที่: $dateString \n ระยะเวลาที่ฝาก: ${book['day'].toString() ?? ''}วัน'),
+                    'Status: ${payment['created_at'] ?? ''}\nชื่อสัตว์เลี้ยง: ${payment['amount'].toString() ?? ''} \n ระยะเวลาที่ฝาก: ${payment['status'].toString() ?? ''}วัน'),
               ),
             );
           }
