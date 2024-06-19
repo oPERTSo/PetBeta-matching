@@ -121,13 +121,6 @@ class _PetOwnerViewState extends State<PetOwnerView> {
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
 
-    // Widget imageWidget = Image.asset(
-    //   'assets/img/upload.png',
-    //   width: media.width * 0.5,
-    //   height: media.width * 0.3,
-    //   fit: BoxFit.contain,
-    // );
-
     return Scaffold(
       appBar: AppBar(
         title: Text("Pet Owner"),
@@ -169,20 +162,6 @@ class _PetOwnerViewState extends State<PetOwnerView> {
               const SizedBox(
                 height: 20,
               ),
-              // Padding(
-              //   padding: const EdgeInsets.symmetric(horizontal: 20),
-              //   child: RoundTextfield(
-              //     hintText: "รายการ :",
-              //     controller: txtSearch,
-              //     left: Container(
-              //       alignment: Alignment.center,
-              //       width: 30,
-              //     ),
-              //   ),
-              // ),
-              // const SizedBox(
-              //   height: 20,
-              // ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: RoundTextfield(

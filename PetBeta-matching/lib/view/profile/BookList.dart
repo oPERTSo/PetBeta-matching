@@ -28,8 +28,11 @@ class _BookListViewState extends State<BookListView> {
         .toList();
     allData.sort((a, b) => (b['expiry'] as Timestamp)
         .compareTo(a['expiry'] as Timestamp)); // เรียงลำดับตามวันที่หมดอายุ
+    // กรองเฉพาะหนังสือที่มีสถานะการจับคู่สำเร็จ
+    final matchedBooks =
+        allData.where((book) => book['status'] == 'matched').toList();
     setState(() {
-      _books = allData;
+      _books = matchedBooks;
       _querySnapshotUser = querySnapshotUser;
     });
   }
@@ -50,6 +53,8 @@ class _BookListViewState extends State<BookListView> {
                 DateFormat('dd/MM/yyyy').format(expiryDateTime.toDate());
 
             return Card(
+              color: Color.fromARGB(
+                  255, 253, 253, 253), // Set the background color to white
               // ใส่การ์ดที่นี่
               child: ListTile(
                 title: Text('ชื่อ: ${userDataMap['name'] ?? ''}'),

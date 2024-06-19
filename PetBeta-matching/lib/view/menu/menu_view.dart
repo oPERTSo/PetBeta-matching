@@ -12,13 +12,11 @@ class MenuView extends StatefulWidget {
 
 class _MenuViewState extends State<MenuView> {
   void _navigateToDepositPage() {
-    // ใส่โค้ดเพื่อนำไปยังหน้าที่ต้องการ
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => PetSitterPage()));
   }
 
   void _navigateToPetOwnerPage() {
-    // ใส่โค้ดเพื่อนำไปยังหน้าที่ต้องการ
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => PetOwnerView()));
   }
@@ -33,55 +31,59 @@ class _MenuViewState extends State<MenuView> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(
-                "assets/img/app_logo.png",
-                width: media.width * 0.55,
-                height: media.width * 0.55,
-                fit: BoxFit.contain,
+              Padding(
+                padding: EdgeInsets.only(top: media.height * 0.05),
+                child: Image.asset(
+                  "assets/img/app_logo.png",
+                  width: media.width * 0.55,
+                  height: media.width * 0.55,
+                  fit: BoxFit.contain,
+                ),
               ),
-              SizedBox(height: 20), // เพิ่มระยะห่าง
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: _navigateToDepositPage, // กำหนดฟังก์ชันเมื่อกด
-                    child: Container(
-                      width: media.width * 0.4,
-                      height: media.width * 0.4,
-                      color: Colors.blue,
-                      margin: EdgeInsets.all(20),
-                      child: Center(
-                        child: Text(
-                          "ผู้รับฝาก",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+              SizedBox(height: media.height * 0.05), // Increase spacing
+              GestureDetector(
+                onTap: _navigateToDepositPage,
+                child: Container(
+                  width: media.width * 0.4,
+                  height: media.width * 0.4,
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                  margin: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                  child: Center(
+                    child: Text(
+                      "รับดูแลสัตว์เลี้ยง",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
-                  GestureDetector(
-                    onTap: _navigateToPetOwnerPage, // กำหนดฟังก์ชันเมื่อกด
-                    child: Container(
-                      width: media.width * 0.4,
-                      height: media.width * 0.4,
-                      color: Colors.red,
-                      margin: EdgeInsets.all(20),
-                      child: Center(
-                        child: Text(
-                          "เจ้าของสัตว์เลี้ยง",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                ),
+              ),
+              GestureDetector(
+                onTap: _navigateToPetOwnerPage,
+                child: Container(
+                  width: media.width * 0.4,
+                  height: media.width * 0.4,
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                  margin: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                  child: Center(
+                    child: Text(
+                      "ฝากสัตว์เลี้ยง",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
-                ],
+                ),
               ),
             ],
           ),
